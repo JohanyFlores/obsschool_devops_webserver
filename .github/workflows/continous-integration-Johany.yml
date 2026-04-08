@@ -32,7 +32,7 @@ jobs:
 
       # Paso 5: Guardar el archivo generado como artefacto 
       - name: Upload credentials artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: credentials-file
           path: credentials.ini
