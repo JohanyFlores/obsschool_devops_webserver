@@ -28,7 +28,7 @@ jobs:
 
       # Paso 4: Construcción del container de Docker
       - name: Build docker image
-        run: docker build -t devops_ws --tag devops_ws_:$(date +%s) .
+        run: docker build -t devops_ws --tag devops_ws:$(date +%s) .
 
       # Paso 5: Guardar el archivo generado como artefacto 
       - name: Upload credentials artifact
