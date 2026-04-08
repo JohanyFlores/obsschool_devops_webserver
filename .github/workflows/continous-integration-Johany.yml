@@ -1,24 +1,24 @@
 name: Continous Integration Johany
 
-# El workflow se ejecuta al hacer push a la rama master [cite: 261]
+# El workflow se ejecuta al hacer push a la rama master
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ,"master" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Paso 1: "Descarga" del código (Checkout) [cite: 263]
+      # Paso 1: "Descarga" del código (Checkout)
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Paso 2: Ejecución de pruebas de calidad de código (Mock) [cite: 264, 265, 266]
+      # Paso 2: Ejecución de pruebas de calidad de código (Mock)
       - name: Pruebas de SAST
         run: echo "Ejecución de pruebas de SAST"
 
-      # Paso 3: Crear el archivo de credenciales [cite: 267]
+      # Paso 3: Crear el archivo de credenciales
       # Aquí usamos los secretos que creaste en el paso anterior
       - name: Crear archivo de credenciales
         run: |
@@ -26,7 +26,7 @@ jobs:
               -e 's/\${PASSWORD}/${{ secrets.PASSWORD }}/g' \
               credentials.ini.tpl > credentials.ini
 
-      # Paso 4: Construcción del container de Docker [cite: 268]
+      # Paso 4: Construcción del container de Docker
       - name: Build docker image
         run: docker build -t devops_ws --tag devops_ws_:$(date +%s) .
 
