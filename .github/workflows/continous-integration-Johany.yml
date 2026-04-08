@@ -22,8 +22,8 @@ jobs:
       # Aquí usamos los secretos que creaste en el paso anterior
       - name: Crear archivo de credenciales
         run: |
-          sed -e 's/\${USERNAME}/${{ secrets.USERNAME }}/g' \
-              -e 's/\${PASSWORD}/${{ secrets.PASSWORD }}/g' \
+          sed -e 's\${USERNAME}/${{ secrets.USERNAME }}/g' \
+              -e 's\${PASSWORD}/${{ secrets.PASSWORD }}/g' \
               credentials.ini.tpl > credentials.ini
 
       # Paso 4: Construcción del container de Docker
