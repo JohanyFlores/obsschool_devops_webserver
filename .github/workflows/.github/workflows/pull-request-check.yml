@@ -1,0 +1,42 @@
+name: Pull Request Quality Gate
+
+on:
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Analizar el código
+        run: echo "Realizando análisis de SAST"
+
+      - name: Comprobar requisitos
+        id: check_file
+        run: |
+          if [ -f "allow_pull_request.txt" ]; then
+            echo "allow_pull=true" >> $GITHUB_ENV
+            echo "Permitiendo Pull Request"
+          else
+            echo "allow_pull=false" >> $GITHUB_ENV
+            echo "Impidiendo Pull Request"
+          fi
+
+      - name: Permitir la build
+        if: env.allow_pull == 'true'
+        run: echo "Build exitosa. Requisitos superados."
+
+      - name: Impedir la build
+        if: env.allow_pull == 'false'
+        run: |
+          echo "Build fallida. Impidiendo Pull Request" [cite: 297]
+          exit 1
+
+      - name: Guardar artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-check-file
+          path: allow_pull_request.txt [cite: 298]
